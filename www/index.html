@@ -32,14 +32,28 @@
                 })
         }
 
-        function fetch(){
-            let TestClass= ncmb.DataStore("FetchTest"); // クラスを指定
-            TestClass.fetch()// fetch 関数を呼び出してレコードを取得
-            .then(function(results){ // .then で成功時の処理を記述// functionの引数が取得したレコード
-                let data=results.get("text"); 
-                let update=results.get("updateDate"); 
-                $("#message").html(data + ":" + update);
-            })
+        function fetch() {
+            let TestClass = ncmb.DataStore("FetchTest"); // クラスを指定
+            TestClass.fetch() // fetch 関数を呼び出してレコードを取得
+                .then(function(results) { // .then で成功時の処理を記述// functionの引数が取得したレコード
+                    let data = results.get("text");
+                    let update = results.get("updateDate");
+                    $("#message").html(data + ":" + update);
+                })
+        }
+
+        function fetchAll() {
+            var TestClass = ncmb.DataStore("FetchTest"); // クラスを指定
+            TestClass.fetchAll() // fetchAll関数を呼び出してレコードを取得
+                .then(function(results) { // .then で成功時の処理を記述// functionの引数が取得したレコードの配列
+                    var msg = "";
+                    for(var i = 0; i < results.length; i++){
+                        var data = results[i].get("text");
+                        var update = results[i].get("updateDate");
+                        msg += data + ":" + update;
+                    }
+                    $("#message").html(msg);
+                })
         }
     </script>
 </head>
@@ -52,7 +66,8 @@
     </div>
     <div id="button">
         <button id="btnA" class="btn" onclick="register()">Register</button>
-        <button id="btnB" class="btn" onclick="fetch()">fetch</button>
+        <button id="btnB" class="btn" onclick="fetch()">Fetch</button>
+        <button id="btnC" class="btn" onclick="fetchAll()">Fetch All</button>
     </div>
     <div id="message">message area</div>
 </body>
